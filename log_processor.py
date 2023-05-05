@@ -237,7 +237,7 @@ def keyPressTableData():
 
         #remove the row where the inter arrival time is 0
         userDataset = userDataset[userDataset['interArrivalTime'] != 0]
-        userDataset['Type'] = userDataset.apply(lambda row: 'Bot' if (row['user_id'] > 59 and row['user_id'] < 112) else 'Human', axis=1)
+        userDataset['Type'] = userDataset.apply(lambda row: 'Bot' if (row['user_id'] > 59 ) else 'Human', axis=1)
         newUserDataset = userDataset[['user_id','duration', 'interArrivalTime', 'Type']]
         # print(newUserDataset)
         if mm:
@@ -274,8 +274,8 @@ def keyPressTableData():
 
 def mouseClickTableData():
     dataset = pd.read_csv('MouseUpTable.csv')
-    dataset['Type'] = dataset.apply(lambda row: 'Bot' if (row['user_id'] > 59 and row['user_id'] < 112) else 'Human', axis=1)
-    newDataset = dataset[['user_id','duration', 'Type']].sample(frac=1)
+    dataset['Type'] = dataset.apply(lambda row: 'Bot' if (row['user_id'] > 59) else 'Human', axis=1)
+    newDataset = dataset[['user_id','duration', 'Type']]
     newDataset.to_csv('MouseClickPressDuration.csv', index=False)
 
     #####################################Mouse Click Duration vs Proportion############################################
@@ -294,7 +294,7 @@ def mouseClickTableData():
 
 
 if __name__ == '__main__':
-    #keyPressTableData()
+    keyPressTableData()
     # keyPressTableData2()
     #MouseMoveTableData()
     mouseClickTableData()
