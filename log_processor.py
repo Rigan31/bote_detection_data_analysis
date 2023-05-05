@@ -35,14 +35,14 @@ def drawBarChart(X, Y, xLabel, yLabel, title, gapBetween):
 
 def MouseMoveTableData():
     dataset = pd.read_csv('MouseMoveTable.csv')
-    print(dataset)
+    #print(dataset)
 
     # add new column to the dataset which will store the velocity of the mouse = distance/duration
     dataset['velocity'] = dataset['distance'] / dataset['duration']
     # replace NaN values with 0
     dataset['velocity'] = dataset['velocity'].fillna(0)
     dataset['velocity'] = dataset['velocity']*1000.0 #convert to px/sec
-    print(dataset)
+    #print(dataset)
 
     #####################################Displacement vs Proportion############################################
 
@@ -67,6 +67,7 @@ def MouseMoveTableData():
 
     #######################################################################################################
 
+    # print(dataset)
     #####################################Distance vs Proportion############################################
 
     maxiDistance = min(dataset['distance'].max(), 4000)
@@ -131,6 +132,7 @@ def MouseMoveTableData():
     drawBarChart(efficiencyRange, proportion, 'Efficiency Range', 'Proportion', 'Efficiency vs Proportion', gapBetween)
     #############################################################################################################
 
+    # print(dataset)
     ##################################### Duration vs Proportion############################################
     maxiDuration = min(dataset['duration'].max(), 2000)
     gapBetween = 100
@@ -168,27 +170,35 @@ def MouseMoveTableData():
 
     ########################################### Average gradient vs start to end gradient######################
     dataset['finalGradient'] = findGradient(dataset['startX'], dataset['startY'], dataset['endX'], dataset['endY']) 
-    dataset['implify'] = dataset['finalGradient'] / dataset['gradient']
+
+    #remove the inf row
+    dataset = dataset[dataset['finalGradient'] != np.inf]
+    dataset['amplify'] = dataset['finalGradient'] / dataset['gradient']
     # remove inf row
-    dataset = dataset[dataset['implify'] != np.inf]
-    maxEfficiency = min(dataset['implify'].max(), 6)
+    dataset = dataset[dataset['amplify'] != np.inf]
+    maxEfficiency = min(dataset['amplify'].max(), 6)
     print(maxEfficiency)
     gapBetween = 0.05
     efficiencyRange = []
     proportion = []
     for i in range(0, int(maxEfficiency / gapBetween) + 1):
         efficiencyRange.append(i*gapBetween)
-        tmpProportion = dataset[(dataset['implify'] >= i * gapBetween) & (dataset['implify'] < (i + 1) * gapBetween)]['implify'].count() / dataset['implify'].count()
+        tmpProportion = dataset[(dataset['amplify'] >= i * gapBetween) & (dataset['amplify'] < (i + 1) * gapBetween)]['amplify'].count() / dataset['amplify'].count()
         proportion.append(tmpProportion)
         # print('Proportion of displacement in range ', i * gapBetween, ' to ', (i + 1) * gapBetween, ' is ', tmpProportion)
     efficiencyRange = np.array(efficiencyRange)
     proportion = np.array(proportion)
-    drawBarChart(efficiencyRange, proportion, 'Implify Range', 'Proportion', 'Implify vs Proportion', gapBetween)
+    drawBarChart(efficiencyRange, proportion, 'amplify Range', 'Proportion', 'amplify vs Proportion', gapBetween)
     
+    print(dataset)
+
+    newDataset = dataset[['user_id', 'distance', 'duration', 'variance', 'velocity', 'displacement', 'gradient', 'finalGradient']]
+    # newDataset['Type'] = newDataset.apply(lambda row: 'Bot' if (row['user_id'] > 59) else 'Human', axis=1)
+    newDataset.to_csv('MouseProperty.csv', index=False)
 
 def keyPressTableData2():
     dataset = pd.read_csv('KeyPressTable.csv')
-    dataset['Type'] = dataset.apply(lambda row: 'Bot' if (row['user_id'] > 59 and row['user_id'] < 112) else 'Human', axis=1)
+    dataset['Type'] = dataset.apply(lambda row: 'Bot' if (row['user_id'] > 59) else 'Human', axis=1)
     dataset = dataset[['duration', 'Type']].sample(frac=1)
     dataset.to_csv('KeyPressDuration.csv', index=False)
 
@@ -241,10 +251,10 @@ def keyPressTableData():
         newUserDataset = userDataset[['user_id','duration', 'interArrivalTime', 'Type']]
         # print(newUserDataset)
         if mm:
-            newUserDataset.to_csv('KeyPressDurationInterArrival.csv',index=False)
+            newUserDataset.to_csv('KeyPressProperty.csv',index=False)
             mm = False
         else:
-            newUserDataset.to_csv('KeyPressDurationInterArrival.csv', mode='a', header=False, index=False)
+            newUserDataset.to_csv('KeyPressProperty.csv', mode='a', header=False, index=False)
         # append inter arrival time to interArrivalList
         interArrivalList.extend(userDataset['interArrivalTime'].tolist())
     
@@ -276,7 +286,7 @@ def mouseClickTableData():
     dataset = pd.read_csv('MouseUpTable.csv')
     dataset['Type'] = dataset.apply(lambda row: 'Bot' if (row['user_id'] > 59) else 'Human', axis=1)
     newDataset = dataset[['user_id','duration', 'Type']]
-    newDataset.to_csv('MouseClickPressDuration.csv', index=False)
+    newDataset.to_csv('MouseClickProperty.csv', index=False)
 
     #####################################Mouse Click Duration vs Proportion############################################
     maxiDuration = min(dataset['duration'].max(), 400)
@@ -292,9 +302,35 @@ def mouseClickTableData():
     proportion = np.array(proportion)
     drawBarChart(durationRange, proportion, 'Duration Range', 'Proportion', 'Mouse Click Duration vs Proportion', gapBetween)    
 
+def extract_speedList(s):
+    # Strip the braces from the string and split on commas
+    speed_list = s.strip("{}").split(",")
+    # Filter out empty strings and convert the remaining strings to floats
+    speed_list = [float(speed) for speed in speed_list if speed]
+    return speed_list
 
+
+def mouseScrollTableData():
+    dataset = pd.read_csv('ScrollTable.csv')
+    dataset = dataset[['user_id', 'duration', 'speedList']]
+    dataset['Type'] = dataset.apply(lambda row: 'Bot' if (row['user_id'] > 59) else 'Human', axis=1)
+
+    # print(dataset)
+    #find the average of speedList
+    # dataset['avgSpeed'] = dataset['speedList'].apply(lambda x: np.mean(x))
+    # print(dataset['speedList'])
+    # dataset['avgSpeed'] = dataset['speedList'].apply(lambda x: sum(x)/len(x))
+
+    # print(dataset['speedList'])
+    dataset["speedList_float"] = dataset["speedList"].apply(extract_speedList)
+    # dataset["average_speedList"] = dataset["speedList_float"].apply(lambda x: sum(x)/len(x))
+    dataset["average_speedList"] = dataset["speedList_float"].apply(lambda x: sum(x)/len(x) if len(x) > 0 else 0.0)
+    newDataset = dataset[['user_id','duration', 'average_speedList']]
+    newDataset.to_csv('MouseScrollProperty.csv', index=False)
+
+    print(dataset)
 if __name__ == '__main__':
     keyPressTableData()
-    # keyPressTableData2()
-    #MouseMoveTableData()
+    MouseMoveTableData()
     mouseClickTableData()
+    mouseScrollTableData()
