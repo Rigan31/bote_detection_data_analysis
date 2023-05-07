@@ -4,8 +4,10 @@ import math
 import matplotlib.pyplot as plt
 
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
 
 from sklearn.cluster import KMeans
+import pickle
 
 
 def groupSimilarData(num_of_tables, num_of_runs):
@@ -13,8 +15,10 @@ def groupSimilarData(num_of_tables, num_of_runs):
     # Load data into a Pandas DataFrame
     dataset = pd.read_csv('modified_mouseMoveTable.csv')
 
+    # dataset['Type'] = dataset.apply(lambda row: 'Bot' if (row['user_id'] > 59) else 'Human', axis=1)
+
     # create a scaler object
-    scaler = MinMaxScaler()
+    # scaler = MinMaxScaler()
     
     cols_to_normalize = ['distance', 'duration', 'gradient', 'variance', 'velocity', 'displacement', 'efficiency', 'finalGradient', 'implify']
 
@@ -28,46 +32,139 @@ def groupSimilarData(num_of_tables, num_of_runs):
     # columns to normalize
     cols_to_normalize = ['distance', 'duration', 'gradient', 'variance', 'velocity', 'displacement', 'efficiency', 'finalGradient', 'implify']
 
+
+
+    bot_dataset = dataset.loc[dataset['user_id'] > 59]
+    human_dataset = dataset.loc[dataset['user_id'] <= 59]
+
+
     # calculate the mean and standard deviation of the columns to normalize
-    means = dataset[cols_to_normalize].mean()
-    stds = dataset[cols_to_normalize].std()
+    bot_means = bot_dataset[cols_to_normalize].mean()
+    bot_stds = bot_dataset[cols_to_normalize].std()
+
+
+    human_means = human_dataset[cols_to_normalize].mean()
+    human_stds = human_dataset[cols_to_normalize].std()
 
 
     print("before std norm")
     # normalize the data
     norm_cols = [col + '_normalized' for col in cols_to_normalize]
-    dataset[norm_cols] = (dataset[cols_to_normalize] - means) / stds
-    dataset[norm_cols] = dataset[norm_cols].fillna(0)
+    human_dataset[norm_cols] = (human_dataset[cols_to_normalize] - human_means) / human_stds
+    human_dataset[norm_cols] = human_dataset[norm_cols].fillna(0)
+
+
+    bot_dataset[norm_cols] = (bot_dataset[cols_to_normalize] - bot_means) / bot_stds
+    bot_dataset[norm_cols] = bot_dataset[norm_cols].fillna(0)
+
 
     print("after std norm")
 
-    dataset.to_csv("normalized_mouseMoveTable.csv", index=False)
+    human_dataset.to_csv("human_normalized_mouseMoveTable.csv", index=False)
+    bot_dataset.to_csv("bot_normalized_mouseMoveTable.csv", index=False)
 
     print("after writing csv")
 
+
+
+    # Split human dataset
+    X_train_human, X_test_human = train_test_split(human_dataset[norm_cols], test_size=0.1, random_state=42)
+
+    # Train k-means on training set
+    kmeans_human = KMeans(n_clusters=num_of_tables, n_init=num_of_runs, random_state=0).fit(X_train_human)
+
+    # Split bot dataset
+    X_train_bot, X_test_bot = train_test_split(bot_dataset[norm_cols], test_size=0.1, random_state=42)
+
+    # Train k-means on training set
+    kmeans_bot = KMeans(n_clusters=num_of_tables, n_init=num_of_runs, random_state=0).fit(X_train_bot)
+
+
+
+
+
     # apply K-Means clustering to the normalized data
-    kmeans = KMeans(n_clusters=num_of_tables, n_init=num_of_runs, random_state=0).fit(dataset[norm_cols])
-    dataset['group'] = kmeans.labels_
+    # kmeans_human = KMeans(n_clusters=num_of_tables, n_init=num_of_runs, random_state=0).fit(human_dataset[norm_cols])
+
+    # kmeans_bot = KMeans(n_clusters=num_of_tables, n_init=num_of_runs, random_state=0).fit(bot_dataset[norm_cols])
+    
+    
+    # save means, stds, and kmeans model to a file using pickle
+    with open('kmeans_human_model.pkl', 'wb') as f:
+        pickle.dump((human_means, human_stds, kmeans_human), f)
+
+
+    with open('kmeans_bot_model.pkl', 'wb') as f:
+        pickle.dump((bot_means, bot_stds, kmeans_bot), f)
+
+
+    # save the fitted model to a file using pickle
+    # with open('kmeans_model.pkl', 'wb') as f:
+    #     pickle.dump(kmeans, f)
+    
+    X_train_human['human_group'] = kmeans_human.labels_
+
+    X_train_bot['bot_group'] = kmeans_bot.labels_
+
 
     # loop over the groups and write each one to a separate CSV file
-    for group_num, group_df in dataset.groupby('group'):
-        filename = f'group_{group_num}.csv'
+    for group_num, group_df in X_train_human.groupby('human_group'):
+        filename = f'groups/human/human_group_{group_num}.csv'
         group_df[cols_to_normalize].to_csv(filename, index=False)
+
+    for group_num, group_df in X_train_bot.groupby('bot_group'):
+        filename = f'groups/bot/bot_group_{group_num}.csv'
+        group_df[cols_to_normalize].to_csv(filename, index=False)
+
 
     print("after grouping data")
 
 
 def calculateClusterDistance(client_data):
 
+    # load the saved model from a file
+    # with open('kmeans_model.pkl', 'rb') as f:
+    #     kmeans = pickle.load(f)
+
+    # load the saved file and retrieve means, stds, and kmeans model
+    with open('kmeans_human_model.pkl', 'rb') as f:
+        train_means_human, train_stds_human, kmeans_human = pickle.load(f)
+
+    with open('kmeans_bot_model.pkl', 'rb') as f:
+        train_means_bot, train_stds_bot, kmeans_bot = pickle.load(f)
+
+
+
+    cols_to_normalize = ['distance', 'duration', 'gradient', 'variance', 'velocity', 'displacement', 'efficiency', 'finalGradient', 'implify']
+    norm_cols = [col + '_normalized' for col in cols_to_normalize]
     
+    client_data[norm_cols] = (client_data[cols_to_normalize] - train_means_human) / train_stds_human
+    client_data[norm_cols] = client_data[norm_cols].fillna(0)
+
+
+
     # Normalize the new data point
-    new_point_norm = (client_data[cols_to_normalize] - df[cols_to_normalize].mean()) / df[cols_to_normalize].std()
+    # new_point_norm = (client_data[cols_to_normalize] - train_means) / train_stds
 
     # Calculate the distance to each group
-    distances = kmeans.transform(new_point_norm)
+    distances_human = kmeans_human.transform(client_data[norm_cols])
+    distances_bot = kmeans_bot.transform(client_data[norm_cols])
+
+
+    # predict the clusters of the test set
+    # client_data['cluster'] = kmeans.predict(client_data[norm_cols])
+
+    # print the predicted clusters for the test set
+    # print(client_data['cluster'])
 
     # Print the distances
-    print(distances)
+    print("human distance: ", np.amin(distances_human))
+    print("bot distance: ", np.amin(distances_bot))
+
+    result = "Human" if np.amin(distances_human) < np.amin(distances_bot) else "Bot"
+
+    print("Verdict: ", result)
+
 
 
 
@@ -254,7 +351,7 @@ def MouseMoveTableData():
     drawBarChart(efficiencyRange, proportion, 'Implify Range', 'Proportion', 'Implify vs Proportion', gapBetween)
     
 
-    dataset.to_csv('modified_mouse_move_table.csv', index=False)
+    dataset.to_csv('modified_mouseMoveTable.csv', index=False)
 
 
 
