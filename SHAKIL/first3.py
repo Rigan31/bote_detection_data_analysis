@@ -9,6 +9,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 import pickle
 
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+
+
 
 def KeyPress_MakeCluster(num_of_tables, num_of_runs):
 
@@ -331,7 +335,7 @@ def MouseClickClusterDistance(client_data):
 
 
 
-def MouseMove_MakeCluster(num_of_tables, num_of_runs):
+def MouseMove_MakeCluster(num_of_tables, num_of_runs, random_state_human, random_state_bot):
 
     # Load data into a Pandas DataFrame
     # dataset = pd.read_csv('modified_mouseMoveTable.csv')
@@ -358,6 +362,20 @@ def MouseMove_MakeCluster(num_of_tables, num_of_runs):
 
     bot_dataset.loc[(bot_dataset['finalGradient'] == -1.0), 'variance'] = 0
 
+    bot_dataset = bot_dataset.loc[bot_dataset['finalGradient'] != -1.0]
+    human_dataset = human_dataset.loc[human_dataset['finalGradient'] != -1.0]
+
+
+    bot_dataset = bot_dataset.loc[bot_dataset['variance'] != -1.0]
+    human_dataset = human_dataset.loc[human_dataset['variance'] != -1.0]
+
+    bot_dataset = bot_dataset.loc[bot_dataset['distance'] != 0]
+    human_dataset = human_dataset.loc[human_dataset['distance'] != 0]
+
+
+    # bot_dataset['amplify'] = abs(bot_dataset['amplify'])
+    # human_dataset['amplify'] = abs(human_dataset['amplify'])
+
 
     # columns to normalize
     # cols_to_normalize = ['distance', 'duration', 'gradient', 'variance', 'velocity', 'displacement', 'efficiency', 'finalGradient', 'amplify']
@@ -368,12 +386,12 @@ def MouseMove_MakeCluster(num_of_tables, num_of_runs):
 
     # Split human dataset
     # human_dataset, X_test_human = train_test_split(human_dataset[norm_cols], test_size=0.1, random_state=42)
-    human_dataset, X_test_human = train_test_split(human_dataset, test_size=0.1, random_state=42)
+    human_dataset, X_test_human = train_test_split(human_dataset, test_size=0.1, random_state=random_state_human)
 
 
     # Split bot dataset
     # bot_dataset, X_test_bot = train_test_split(bot_dataset[norm_cols], test_size=0.1, random_state=42)
-    bot_dataset, X_test_bot = train_test_split(bot_dataset, test_size=0.1, random_state=42)
+    bot_dataset, X_test_bot = train_test_split(bot_dataset, test_size=0.1, random_state=random_state_bot)
 
 
     # calculate the mean and standard deviation of the columns to normalize
@@ -384,7 +402,7 @@ def MouseMove_MakeCluster(num_of_tables, num_of_runs):
     human_stds = human_dataset[cols_to_normalize].std()
 
 
-    print("before std norm")
+    # print("before std norm")
     # normalize the data
     human_dataset[norm_cols] = (human_dataset[cols_to_normalize] - human_means) / human_stds
     human_dataset[norm_cols] = human_dataset[norm_cols].fillna(0)
@@ -394,9 +412,29 @@ def MouseMove_MakeCluster(num_of_tables, num_of_runs):
     bot_dataset[norm_cols] = bot_dataset[norm_cols].fillna(0)
 
 
-    # human_dataset.to_csv("csv_files/normalized/human_nor_mouseMove.csv", index=False)
-    # bot_dataset.to_csv("csv_files/normalized/bot_norm_mouseMove.csv", index=False)
+    # =======================================================
 
+
+    # Normalize the columns
+    # normalized_data = bot_dataset[cols_to_normalize].copy()
+    # # normalized_data = (normalized_data - normalized_data.mean()) / normalized_data.std()
+
+    # # Apply PCA to reduce the dimensions to 2
+    # pca = PCA(n_components=2)
+    # pca_result = pca.fit_transform(normalized_data)
+
+    # # Create a scatter plot
+    # plt.scatter(pca_result[:, 0], pca_result[:, 1])
+    # plt.xlabel('Principal Component 1')
+    # plt.ylabel('Principal Component 2')
+    # plt.title('Clusters Visualization')
+    
+    # # Set the limits for the x and y axes
+    # plt.xlim([-5000, 5000])  # Set the desired limits for the x-axis
+    # # plt.ylim([-5, 5])  # Set the desired limits for the y-axis
+
+    
+    # plt.show()
 
     # Train k-means on training set
     kmeans_human = KMeans(n_clusters=num_of_tables, n_init=num_of_runs, random_state=0).fit(human_dataset[norm_cols])
@@ -404,6 +442,98 @@ def MouseMove_MakeCluster(num_of_tables, num_of_runs):
     # Train k-means on training set
     kmeans_bot = KMeans(n_clusters=num_of_tables, n_init=num_of_runs, random_state=0).fit(bot_dataset[norm_cols])
 
+
+
+
+    # ======================================================
+
+    bot_labels = kmeans_bot.labels_
+    human_labels = kmeans_human.labels_
+
+    # Normalize the columns for bot_dataset
+    normalized_bot_data = bot_dataset[cols_to_normalize].copy()
+    # normalized_bot_data = (normalized_bot_data - normalized_bot_data.mean()) / normalized_bot_data.std()
+
+    # Normalize the columns for human_dataset
+    normalized_human_data = human_dataset[cols_to_normalize].copy()
+    # normalized_human_data = (normalized_human_data - normalized_human_data.mean()) / normalized_human_data.std()
+
+    # Apply PCA to reduce the dimensions to 2 for bot_dataset
+    pca_bot = PCA(n_components=2)
+    pca_result_bot = pca_bot.fit_transform(normalized_bot_data)
+
+    # Apply PCA to reduce the dimensions to 2 for human_dataset
+    pca_human = PCA(n_components=2)
+    pca_result_human = pca_human.fit_transform(normalized_human_data)
+
+    # Create a figure with two subplots
+    fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+    # Plot for bot_dataset
+    axes[0].scatter(pca_result_bot[:, 0], pca_result_bot[:, 1], c=bot_labels, s=2)
+    axes[0].set_xlabel('Principal Component 1')
+    axes[0].set_ylabel('Principal Component 2')
+    axes[0].set_title('Bot Dataset Clusters')
+    axes[0].set_xlim([-3000, 5000])
+
+    # Plot for human_dataset
+    axes[1].scatter(pca_result_human[:, 0], pca_result_human[:, 1], c=human_labels, s=2)
+    axes[1].set_xlabel('Principal Component 1')
+    axes[1].set_ylabel('Principal Component 2')
+    axes[1].set_title('Human Dataset Clusters')
+    axes[1].set_xlim([-2000, 5000])
+
+    # Adjust spacing between subplots
+    plt.tight_layout()
+
+    plt.savefig('cluster/mouseMove_2.png')  # Specify the desired path and filename
+
+    # Display the figure
+    plt.show()
+
+
+
+    # # ==========================================================
+
+    # # Combine the bot and human datasets
+    # combined_data = pd.concat([normalized_bot_data, normalized_human_data])
+
+    # # Apply PCA to reduce the dimensions to 2 for combined data
+    # pca = PCA(n_components=2)
+    # pca_result = pca.fit_transform(combined_data)
+
+    # # Create a figure
+    # fig, ax = plt.subplots(figsize=(8, 6))
+
+    # # Plot bot dataset in blue
+    # ax.scatter(pca_result[:len(normalized_bot_data), 0], pca_result[:len(normalized_bot_data), 1], c='blue', label='Bot', s=1)
+
+    # # Plot human dataset in green
+    # ax.scatter(pca_result[len(normalized_bot_data):, 0], pca_result[len(normalized_bot_data):, 1], c='green', label='Human', s=1)
+
+    # # Set labels and title
+    # ax.set_xlabel('Principal Component 1')
+    # ax.set_ylabel('Principal Component 2')
+    # ax.set_title('Bot and Human Datasets')
+    # ax.set_xlim([-2000, 3000])
+
+    # # Set legend
+    # ax.legend()
+
+    # # Display the plot
+    # plt.show()
+
+
+
+
+    # ===========================================================
+
+
+    # human_dataset.to_csv("csv_files/normalized/human_nor_mouseMove.csv", index=False)
+    # bot_dataset.to_csv("csv_files/normalized/bot_norm_mouseMove.csv", index=False)
+
+
+    
     
     # save means, stds, and kmeans model to a file using pickle
     with open('models/kmeans_human_mouseMove_model.pkl', 'wb') as f:
@@ -429,7 +559,7 @@ def MouseMove_MakeCluster(num_of_tables, num_of_runs):
         group_df[norm_cols].to_csv(filename, index=False)
 
 
-    print("after grouping data")
+    # print("after grouping data")
 
     return (X_test_human, X_test_bot)
 
@@ -473,8 +603,8 @@ def MouseMoveClusterDistance(client_data):
     distances_bot = kmeans_bot.transform(client_data_bot[norm_cols])
 
 
-    print("human distance: ", np.mean(distances_human))
-    print("bot distance: ", np.mean(distances_bot))
+    # print("human distance: ", np.mean(distances_human))
+    # print("bot distance: ", np.mean(distances_bot))
 
 
     # result = "Human" if np.amin(distances_human) < np.amin(distances_bot) else "Bot"
@@ -532,85 +662,136 @@ if __name__ == '__main__':
 
     # num_clusters = 60, num_runs = 20, batch_size = 5, TPR = 1.0, TNR = 0.143
 
+    # Open a file in write mode
+    file = open('output/output3.txt', 'w')
 
-    X_test_human, X_test_bot = MouseMove_MakeCluster(50, 20)
+    
 
-    # assume evaluation function is called 'evaluate'
-    batch_size = 5
-    num_human = len(X_test_human) // batch_size
-    num_bot = len(X_test_bot) // batch_size
+    maxi, best_k = 0, 0
+    best_TPR, best_TNR = 0, 0
+    for k in range(20, 120, 5):
+        total_TPR, total_TNR, total_FPR, total_FNR = 0.0, 0.0, 0.0, 0.0
+        for i in range(30, 45):
+            for j in range(30, 45):
+                X_test_human, X_test_bot = MouseMove_MakeCluster(k, 20, i, j)
 
-    TP, TN, FP, FN = 0, 0, 0, 0
+                # assume evaluation function is called 'evaluate'
+                batch_size = 5
+                num_human = len(X_test_human) // batch_size
+                num_bot = len(X_test_bot) // batch_size
 
-    print("X.human: ", X_test_human.shape)
-    print("X.bot: ", X_test_bot.shape)
+                TP, TN, FP, FN = 0, 0, 0, 0
 
-    print("num_human: ", num_human)
-    print("num_bot: ", num_bot)
+                # print("X.human: ", X_test_human.shape)
+                # print("X.bot: ", X_test_bot.shape)
 
-    print("Human Data: ")
+                # print("num_human: ", num_human)
+                # print("num_bot: ", num_bot)
 
-    for i in range(num_human):
-        start_idx = i * batch_size
-        end_idx = (i + 1) * batch_size
-        batch = X_test_human[start_idx:end_idx]
-        result = Resolver(batch)
-        if(result == 'Human'):
-            TN += 1
-        else:
-            FP += 1
+                # print("Human Data: ")
 
-        print(f"Evaluation result for rows {start_idx} to {end_idx}: {result}")
+                for i in range(num_human):
+                    start_idx = i * batch_size
+                    end_idx = (i + 1) * batch_size
+                    batch = X_test_human[start_idx:end_idx]
+                    result = Resolver(batch)
+                    if(result == 'Human'):
+                        TN += 1
+                    else:
+                        FP += 1
+
+                    # print(f"Evaluation result for rows {start_idx} to {end_idx}: {result}")
+                    
+                # handle the last batch separately in case it has less than 10 rows
+                if len(X_test_human) % batch_size > 0:
+                    start_idx = num_human * batch_size
+                    end_idx = len(X_test_human)
+                    batch = X_test_human[start_idx:end_idx]
+                    result = Resolver(batch)
+                    # print(f"Evaluation result for rows {start_idx} to {end_idx}: {result}")
+
+                    if(result == 'Human'):
+                        TN += 1
+                    else:
+                        FP += 1
+
+
+                # print("\nBot Data: \n")
+
+                for i in range(num_bot):
+                    start_idx = i * batch_size
+                    end_idx = (i + 1) * batch_size
+                    batch = X_test_bot[start_idx:end_idx]
+                    result = Resolver(batch)
+                    # print(f"Evaluation result for rows {start_idx} to {end_idx}: {result}")
+
+                    if result == 'Bot':
+                        TP += 1
+                    else:
+                        FN += 1
+                    
+                # handle the last batch separately in case it has less than 10 rows
+                if len(X_test_bot) % batch_size > 0:
+                    start_idx = num_bot * batch_size
+                    end_idx = len(X_test_bot)
+                    batch = X_test_bot[start_idx:end_idx]
+                    result = Resolver(batch)
+                    # print(f"Evaluation result for rows {start_idx} to {end_idx}: {result}")
+
+
+                TPR = TP / (TP + FN)
+
+                TNR = TN / (TN + FP)
+
+                FPR = FP / (FP + TN)
+
+                FNR = FN / (TP + FN)
+
+                total_TPR += TPR
+                total_TNR += TNR
+                total_FPR += FPR
+                total_FNR += FNR
+
+                # print(f"TPR: {TPR}")
+                # print(f"TNR: {TNR}")
+                # print(f"FPR: {FPR}")
+                # print(f"FNR: {FNR}")
+
+               
+
+        total_TPR /= 225
+        total_TNR /= 225
+        total_FPR /= 225
+        total_FNR /= 225
+
+        # Write content to the file
+        file.write(f"for k = {k}\n")
+        file.write(f"TPR: {total_TPR}\n")
+        file.write(f"TNR: {total_TNR}\n")
+        file.write(f"FPR: {total_FPR}\n")
+        file.write(f"FNR: {total_FNR}\n\n")
+
+        # Close the file
+
+
         
-    # handle the last batch separately in case it has less than 10 rows
-    if len(X_test_human) % batch_size > 0:
-        start_idx = num_human * batch_size
-        end_idx = len(X_test_human)
-        batch = X_test_human[start_idx:end_idx]
-        result = Resolver(batch)
-        print(f"Evaluation result for rows {start_idx} to {end_idx}: {result}")
+        print(f"for k = {k}")
+        print(f"TPR: {total_TPR}")
+        print(f"TNR: {total_TNR}")
+        print(f"FPR: {total_FPR}")
+        print(f"FNR: {total_FNR}")
 
-        if(result == 'Human'):
-            TN += 1
-        else:
-            FP += 1
+        if maxi < (total_TPR + total_TNR):
+            maxi = total_TPR + total_TNR
+            best_k = k
+            best_TPR = total_TPR
+            best_TNR = total_TNR
 
-
-    print("\nBot Data: \n")
-
-    for i in range(num_bot):
-        start_idx = i * batch_size
-        end_idx = (i + 1) * batch_size
-        batch = X_test_bot[start_idx:end_idx]
-        result = Resolver(batch)
-        print(f"Evaluation result for rows {start_idx} to {end_idx}: {result}")
-
-        if result == 'Bot':
-            TP += 1
-        else:
-            FN += 1
-        
-    # handle the last batch separately in case it has less than 10 rows
-    if len(X_test_bot) % batch_size > 0:
-        start_idx = num_bot * batch_size
-        end_idx = len(X_test_bot)
-        batch = X_test_bot[start_idx:end_idx]
-        result = Resolver(batch)
-        print(f"Evaluation result for rows {start_idx} to {end_idx}: {result}")
+    file.close()
 
 
-    TPR = TP / (TP + FN)
+    
 
-    TNR = TN / (TN + FP)
-
-    FPR = FP / (FP + TN)
-
-    FNR = FN / (TP + FN)
-
-    print(f"TPR: {TPR}")
-    print(f"TNR: {TNR}")
-    print(f"FPR: {FPR}")
-    print(f"FNR: {FNR}")
 
     
 

@@ -61,3 +61,11 @@
 
 
 # cluster_num, class_label = predict_cluster(new_data_point, kmeans_human, reg_models)
+
+
+while(True):
+    x = int(input("Enter first number: \n"))
+    y = int(input("Enter second number: \n"))
+
+    # result = True if x > y/2 else False
+    print(int(y/2))

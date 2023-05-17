@@ -1,0 +1,1026 @@
+for batch size = 8
+
+
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.8658341247230136
+TNR: 1.0
+FPR: 0.0
+FNR: 0.1341658752769864
+
+
+for k =  40
+Linear algo:
+TPR: 0.9043605571383347
+TNR: 1.0
+FPR: 0.0
+FNR: 0.09563944286166508
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.8819389047166826
+TNR: 1.0
+FPR: 0.0
+FNR: 0.1180610952833175
+
+
+for k =  45
+Linear algo:
+TPR: 0.9050728078505856
+TNR: 1.0
+FPR: 0.0
+FNR: 0.09492719214941436
+Ranfom Forest algo:
+TPR: 0.9953703703703705
+TNR: 1.0
+FPR: 0.0
+FNR: 0.004629629629629629
+SVM algo:
+TPR: 0.8905935422602087
+TNR: 1.0
+FPR: 0.0
+FNR: 0.10940645773979105
+
+
+for k =  50
+Linear algo:
+TPR: 0.9261237733459955
+TNR: 1.0
+FPR: 0.0
+FNR: 0.07387622665400444
+Ranfom Forest algo:
+TPR: 0.9953703703703705
+TNR: 1.0
+FPR: 0.0
+FNR: 0.004629629629629629
+SVM algo:
+TPR: 0.9001693573915799
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0998306426084204
+
+
+for k =  55
+Linear algo:
+TPR: 0.9564735675846785
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0435264324153213
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9061158594491927
+TNR: 1.0
+FPR: 0.0
+FNR: 0.09388414055080722
+
+
+for k =  60
+Linear algo:
+TPR: 0.9436134852801518
+TNR: 1.0
+FPR: 0.0
+FNR: 0.05638651471984805
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9261918328584995
+TNR: 1.0
+FPR: 0.0
+FNR: 0.07380816714150047
+
+
+for k =  65
+Linear algo:
+TPR: 0.926494143716366
+TNR: 1.0
+FPR: 0.0
+FNR: 0.07350585628363407
+Ranfom Forest algo:
+TPR: 0.9874960430515985
+TNR: 1.0
+FPR: 0.0
+FNR: 0.012503956948401392
+SVM algo:
+TPR: 0.918619816397594
+TNR: 1.0
+FPR: 0.0
+FNR: 0.08138018360240583
+
+
+for batch_size:  10
+for k =  20
+Linear algo:
+TPR: 0.9444444444444444
+TNR: 1.0
+FPR: 0.0
+FNR: 0.05555555555555555
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9444444444444444
+TNR: 0.9929435483870969
+FPR: 0.007056451612903226
+FNR: 0.05555555555555555
+
+
+for k =  25
+Linear algo:
+TPR: 0.9274853801169591
+TNR: 0.9964157706093191
+FPR: 0.0035842293906810036
+FNR: 0.07251461988304092
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9552631578947369
+TNR: 0.9964157706093191
+FPR: 0.0035842293906810036
+FNR: 0.04473684210526316
+
+
+for k =  30
+Linear algo:
+TPR: 0.933305485937065
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0666945140629351
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9438596491228071
+TNR: 0.9964157706093191
+FPR: 0.0035842293906810036
+FNR: 0.056140350877192984
+
+
+for k =  35
+Linear algo:
+TPR: 0.9229880256196046
+TNR: 1.0
+FPR: 0.0
+FNR: 0.07701197438039543
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9446811473127263
+TNR: 0.9929435483870969
+FPR: 0.007056451612903226
+FNR: 0.05531885268727374
+
+
+for k =  40
+Linear algo:
+TPR: 0.933305485937065
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0666945140629351
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.883013088276246
+TNR: 0.9964157706093191
+FPR: 0.0035842293906810036
+FNR: 0.11698691172375383
+
+
+for k =  45
+Linear algo:
+TPR: 0.9388610414926206
+TNR: 1.0
+FPR: 0.0
+FNR: 0.06113895850737957
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.922458925090504
+TNR: 0.9964157706093191
+FPR: 0.0035842293906810036
+FNR: 0.07754107490949597
+
+
+for k =  50
+Linear algo:
+TPR: 0.9885964912280704
+TNR: 1.0
+FPR: 0.0
+FNR: 0.011403508771929825
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9666388192703982
+TNR: 0.9964157706093191
+FPR: 0.0035842293906810036
+FNR: 0.033361180729601786
+
+
+for k =  55
+Linear algo:
+TPR: 0.9830409356725147
+TNR: 1.0
+FPR: 0.0
+FNR: 0.016959064327485382
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9777499303815094
+TNR: 1.0
+FPR: 0.0
+FNR: 0.022250069618490673
+
+
+for k =  60
+Linear algo:
+TPR: 0.9944444444444444
+TNR: 1.0
+FPR: 0.0
+FNR: 0.005555555555555556
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9885964912280704
+TNR: 0.9964157706093191
+FPR: 0.0035842293906810036
+FNR: 0.011403508771929825
+
+
+for k =  65
+Linear algo:
+TPR: 0.9777499303815094
+TNR: 1.0
+FPR: 0.0
+FNR: 0.022250069618490673
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9721943748259538
+TNR: 0.9964157706093191
+FPR: 0.0035842293906810036
+FNR: 0.02780562517404623
+
+
+for batch_size:  15
+for k =  20
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 0.9947089947089948
+FPR: 0.005291005291005291
+FNR: 0.0
+
+
+for k =  25
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  30
+Linear algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+
+
+for k =  35
+Linear algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+
+
+for k =  40
+Linear algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.982905982905983
+TNR: 1.0
+FPR: 0.0
+FNR: 0.017094017094017096
+
+
+for k =  45
+Linear algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+
+
+for k =  50
+Linear algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+
+
+for k =  55
+Linear algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+
+
+for k =  60
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9914529914529915
+TNR: 1.0
+FPR: 0.0
+FNR: 0.008547008547008548
+
+
+for k =  65
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for batch_size:  20
+for k =  20
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  25
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  30
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  35
+Linear algo:
+TPR: 0.9898989898989901
+TNR: 1.0
+FPR: 0.0
+FNR: 0.010101010101010102
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9898989898989901
+TNR: 1.0
+FPR: 0.0
+FNR: 0.010101010101010102
+
+
+for k =  40
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  45
+Linear algo:
+TPR: 0.9898989898989901
+TNR: 1.0
+FPR: 0.0
+FNR: 0.010101010101010102
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9898989898989901
+TNR: 1.0
+FPR: 0.0
+FNR: 0.010101010101010102
+
+
+for k =  50
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9898989898989901
+TNR: 1.0
+FPR: 0.0
+FNR: 0.010101010101010102
+
+
+for k =  55
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9898989898989901
+TNR: 1.0
+FPR: 0.0
+FNR: 0.010101010101010102
+
+
+for k =  60
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  65
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for batch_size:  25
+for k =  20
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  25
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  30
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  35
+Linear algo:
+TPR: 0.9876543209876544
+TNR: 1.0
+FPR: 0.0
+FNR: 0.012345679012345678
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9876543209876544
+TNR: 1.0
+FPR: 0.0
+FNR: 0.012345679012345678
+
+
+for k =  40
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  45
+Linear algo:
+TPR: 0.9876543209876544
+TNR: 1.0
+FPR: 0.0
+FNR: 0.012345679012345678
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9876543209876544
+TNR: 1.0
+FPR: 0.0
+FNR: 0.012345679012345678
+
+
+for k =  50
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9876543209876544
+TNR: 1.0
+FPR: 0.0
+FNR: 0.012345679012345678
+
+
+for k =  55
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 0.9876543209876544
+TNR: 1.0
+FPR: 0.0
+FNR: 0.012345679012345678
+
+
+for k =  60
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  65
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for batch_size:  30
+for k =  20
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  25
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  30
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  35
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  40
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  45
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  50
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  55
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  60
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
+
+for k =  65
+Linear algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+Ranfom Forest algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+SVM algo:
+TPR: 1.0
+TNR: 1.0
+FPR: 0.0
+FNR: 0.0
+
